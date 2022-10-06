@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- react-dom : React Element를 HTML에 두는 역할을 함-->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- 엔진과 같음, interactive한 UI를 만들수 있게함-->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <body>
+        <div id = "root"></div>
     </body>
+    <script>
+        const root  = document.getElementById("root")
+        const span = React.createElement("span"/*HTML Tag*/,
+        {id : "sexy-span", style : {color : "red"}},
+        "Hello I'm a span"
+        );
+        //React 18 버전에서는 바뀜
+        //ReactDOM.render(span, root);
+        ReactDOM.createRoot(root).render(span);
+
+    </script>
 </html>
