@@ -13,27 +13,27 @@
     </body>
     <script type="text/babel">
         const root  = ReactDOM.createRoot(document.getElementById('root'));
-        const Title = () => (
-            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-                Hello I'm a title
-            </h3>
-        )
-
-        const Btn = () => {
-            return(<button id="button" onClick={()=> {console.log("Clicked")}}>
-                Click Me!
-            </button>)
+        let counter = 0;
+        function countUp(){
+            counter += 1;
+            render();
         }
 
+        function render(){
+            ReactDOM.createRoot(document.getElementById('root')).render(<Container/>);
+        }
         const Container =() => (
             <div id="container">
-                <Title />
-                <Btn />
+                <h3>
+                    Total clicks : {counter}
+                </h3>
+                <button onClick={countUp}>
+                    Click Me!
+                </button>
             </div>
         );
         //React 18 버전에서는 바뀜
         //ReactDOM.render(span, root);
-        ReactDOM.createRoot(document.getElementById('root')).render(<Container/>);
-
+        render();
     </script>
 </html>
