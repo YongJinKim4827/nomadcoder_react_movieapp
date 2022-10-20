@@ -13,73 +13,30 @@
     </body>
     <script type="text/babel">
         const root  = ReactDOM.createRoot(document.getElementById('root'));
-        const MinutesToHours =() => {
-            const [amount, setAmount] = React.useState();
-            const [hours, setHours] = React.useState();
-            const [flipped, setFlipped] = React.useState(false);
-            const onChange = (e) => {
-                setAmount(e.target.value);
-            }
-            const onReset = (e) => {
-                setAmount(0)
-            }
-            const onFilp = (e) => {
-                onReset();
-                setFlipped((current) => !current)
-            }
+        const Btn = ({text, onClick}) => {
+            console.log(text, "was rendered")
             return(
-                <div id="container">
-                <label htmlFor = "minutes">Minutes</label>
-                <input 
-                    id = "minutes" 
-                    value = {flipped ? amount * 60 :  amount} 
-                    placeholder = "Minutes" 
-                    type="number" 
-                    onChange={onChange} 
-                    disabled = {flipped}/>
-
-                <label htmlFor = "hours">Hours</label>
-
-                <input 
-                    id = "hours" 
-                    value = { flipped ? amount :  Math.round(amount/60)} 
-                    placeholder = "Hour" 
-                    type="number" 
-                    onChange={onChange} 
-                    disabled = {!flipped}/>
-                <button onClick={onReset}> Reset </button>
-                <button onClick={onFilp}> {flipped ? "Turn Back" : "Invert"} </button>
-
-            </div>
-        )};
-        const KmToMiles = ()=> {
-            return(
-                <h3>KM 2M</h3>
+                <button style={{
+                    backgroundColor : "tomato",
+                    color: "white",
+                    padding:"10px 20px",
+                    border : 0,
+                    borderRadius: 10,
+                    fontSize: 16
+                }}
+                onClick={onClick}>{text}</button>
             )
         }
+        const MemorizedBtn = React.memo(Btn) //props가 변경이되는 컴포넌트만 바꿔달라
         const App =() => {
-            const [index, setIndex] = React.useState("-1");
-            const onSelect = (e) => {
-                setIndex(e.target.value);
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => {
+                setValue("Revert Changes")
             }
             return(
             <div id="container">
-                <h1> Super Converter </h1>
-                <select onChange={onSelect}>
-                    <option value="-1">Select your unit</option>
-                    <option value="0">Minutes & Hours</option>
-                    <option value="1">Km & Miles</option>
-                </select>
-                <hr/>
-                {
-                    index === "-1" ? "Please Select Your Units" : null
-                }
-                {
-                    index === "0" ? <MinutesToHours/> : null
-                }
-                {
-                    index === "1" ? <KmToMiles/> : null
-                }
+                <MemorizedBtn text={value} onClick={changeValue}/>
+                <MemorizedBtn text="Continue"/>
             </div>
         )};
         //React 18 버전에서는 바뀜
