@@ -13,7 +13,7 @@
     </body>
     <script type="text/babel">
         const root  = ReactDOM.createRoot(document.getElementById('root'));
-        const App =() => {
+        const MinutesToHours =() => {
             const [amount, setAmount] = React.useState();
             const [hours, setHours] = React.useState();
             const [flipped, setFlipped] = React.useState(false);
@@ -29,7 +29,6 @@
             }
             return(
                 <div id="container">
-                <h1> Super Converter </h1>
                 <label htmlFor = "minutes">Minutes</label>
                 <input 
                     id = "minutes" 
@@ -53,7 +52,36 @@
 
             </div>
         )};
-
+        const KmToMiles = ()=> {
+            return(
+                <h3>KM 2M</h3>
+            )
+        }
+        const App =() => {
+            const [index, setIndex] = React.useState("-1");
+            const onSelect = (e) => {
+                setIndex(e.target.value);
+            }
+            return(
+            <div id="container">
+                <h1> Super Converter </h1>
+                <select onChange={onSelect}>
+                    <option value="-1">Select your unit</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">Km & Miles</option>
+                </select>
+                <hr/>
+                {
+                    index === "-1" ? "Please Select Your Units" : null
+                }
+                {
+                    index === "0" ? <MinutesToHours/> : null
+                }
+                {
+                    index === "1" ? <KmToMiles/> : null
+                }
+            </div>
+        )};
         //React 18 버전에서는 바뀜
         //ReactDOM.render(span, root);
         ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
