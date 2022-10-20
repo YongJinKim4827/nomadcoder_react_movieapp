@@ -7,13 +7,14 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <!-- react-dom : React Element를 HTML에 두는 역할을 함-->
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <body>
         <div id = "root"></div>
     </body>
     <script type="text/babel">
         const root  = ReactDOM.createRoot(document.getElementById('root'));
-        const Btn = ({text, onClick}) => {
+        const Btn = ({text, onClick, fontSize = 25}) => {
             console.log(text, "was rendered")
             return(
                 <button style={{
@@ -22,12 +23,18 @@
                     padding:"10px 20px",
                     border : 0,
                     borderRadius: 10,
-                    fontSize: 16
+                    fontSize: fontSize
                 }}
                 onClick={onClick}>{text}</button>
             )
         }
-        const MemorizedBtn = React.memo(Btn) //props가 변경이되는 컴포넌트만 바꿔달라
+        
+
+        Btn.propTypes = {
+            text: PropTypes.string
+        };
+
+        // const MemorizedBtn = React.memo(Btn) //props가 변경이되는 컴포넌트만 바꿔달라
         const App =() => {
             const [value, setValue] = React.useState("Save Changes");
             const changeValue = () => {
@@ -35,8 +42,8 @@
             }
             return(
             <div id="container">
-                <MemorizedBtn text={value} onClick={changeValue}/>
-                <MemorizedBtn text="Continue"/>
+                <Btn text="Save Changes" fontSize={18}/>
+                <Btn text="Continue"/>
             </div>
         )};
         //React 18 버전에서는 바뀜
